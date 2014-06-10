@@ -27,8 +27,6 @@ var AppRouter = Backbone.Router.extend({
 
 	  })
 
-	  detailViewInstance = new DetailView({ model: photos.first() })
-
 	})
 	///////////////////////////////
 
