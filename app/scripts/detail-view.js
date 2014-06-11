@@ -20,6 +20,7 @@ var DetailView = Backbone.View.extend({
       new ThumbnailView({model: photo})
     })
     // view instance will listen to it's model and run the render below on any changes to this.el (I think)
+    
     this.listenTo(this.model, 'change', this.render);
     // append this.el to the spcified div
     $('.detail-container').append(this.el);

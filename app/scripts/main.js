@@ -1,5 +1,7 @@
 // "use strict";
 
+var photos = new PhotoCollection();
+
 var AppRouter = Backbone.Router.extend({
  
   routes: {
@@ -15,12 +17,10 @@ var AppRouter = Backbone.Router.extend({
  
   initialize: function () {
     console.log('AppRouter was just created!')
- 
-    ///////////////////////////////
-	var photos = new PhotoCollection();
+	
+	this.fetchPromise = photos.fetch();
 
-
-	photos.fetch().done(function(){
+	this.fetchPromise.done(function(){
 	  photos.each(function(photo){
 
 	    new ThumbnailView({model: photo});
@@ -28,13 +28,15 @@ var AppRouter = Backbone.Router.extend({
 	  })
 
 	})
-	///////////////////////////////
 
   },
 
   // Instantiate a new DetailView
-  renderDetailView: function () {
-  	detailViewInstance = new DetailView({ model: photos.first() })
+  renderDetailView: function (id) {
+  	this.fetchPromise.done(function(){
+	    detailViewInstance = new DetailView({ model: photos.get(id) });
+	})
+  	
   }
  
   // renderHome: function () {
